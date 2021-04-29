@@ -8,17 +8,17 @@ app.use(express.json());
 const User = require('./src/models/user'); //  DELETE
 
 //public dir for heroku
-const publicDirectory = path.join(__dirname, "client/build");
+const publicDirectory = path.join(__dirname, "createmerntest/build");
 app.use(express.static(publicDirectory));
 
 require('./src/db/mongoose');
 app.use(express.static('./src/public'));
 
 if (process.env.NODE_ENV === "production") {  
-  app.use(express.static(path.join(__dirname, '../build')));
+  app.use(express.static(path.join(__dirname, './build')));
 }
 app.get("/",  (req, res) =>{
-  res.sendFile(path.join(__dirname, "../build/index.html"));
+  res.sendFile(path.join(__dirname, "./build/index.html"));
 });
 
 
