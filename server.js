@@ -4,8 +4,8 @@ const cors = require("cors");
 const path = require("path");
 app.use(cors());
 app.use(express.json());
-
-const User = require('./src/models/user'); //  DELETE
+const todoRoute = require('./routes/todo');
+app.use('/api', todoRoute);
 
 //public dir for heroku
 const publicDirectory = path.join(__dirname, "createmerntest/build");
@@ -22,22 +22,15 @@ app.get("/",  (req, res) =>{
 });
 
 
+
+
+app.get("/",  (req, res) =>{ res.send('hello from the server')});
+
+
  
 
 
-// retrive all users MUST BE REMOVED AFTERWARDS
-app.get('/bank/allusers', async(req, res)=>{
-  try{
-   const allUsers = User.find({});
-   let usersMap = {};
-   (await allUsers).forEach((user)=>{
-    usersMap[user._id] = user;
-   });
-   res.status(200).send(usersMap);
-  }catch(err){console.log('err: ', err)} 
- });
-
-const PORT = process.env.PORT || 3014; //this ,ust be the same as in the client package.json =>   "proxy":"http://localhost:3014/",
+const PORT = process.env.PORT || 3014; //this must be the same as in the client package.json =>   "proxy":"http://localhost:3014/",
 app.listen(PORT, () => {
   console.log(`Server is up and listening to PORT: ${PORT}`);
 });
