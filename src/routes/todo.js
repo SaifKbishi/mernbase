@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Todo = require('../models/todoModel');
 
-router.get('/todo', (req, res)=>{
- Todo.find((error, todo)=>{
-  if(!todo){
-   console.log('error find:', error)
-  }
-  res.status(200).send(todo);  
- });
+router.get('/todo/',async (req, res)=>{
+ try{
+  const allTodos = await Todo.find({});
+  res.status(200).send(allTodos);
+ }catch(error){
+  console.log('could not pull all todos');
+  res.status(400).send(error);
+ }
 });
 
 router.get('/todo/:id', (req, res)=>{
@@ -21,9 +22,10 @@ router.get('/todo/:id', (req, res)=>{
  });
 });
 
-router.post('/todo', async (req, res)=>{
- let newTodo = new Todo(req.body);
+router.post('/todo/', async (req, res)=>{  
+ const newTodo = new Todo(req.body);
  try{
+  
   await newTodo.save();
   res.status(201).send(newTodo);
  }catch(error){
@@ -35,6 +37,7 @@ router.post('/todo', async (req, res)=>{
 router.patch('/todo/:id', async (req, res)=>{ 
  try{
   const todo = await Todo.findByIdAndUpdate(req.params.id, req.body);
+  console.log('id:',req.params.id, 'body:',req.body)
   if(!todo){
    return res.status(404).send();
   }

@@ -4,7 +4,7 @@ const cors = require("cors");
 const path = require("path");
 app.use(cors());
 app.use(express.json());
-const todoRoute = require('./routes/todo');
+const todoRoute = require('./src/routes/todo');
 app.use('/api', todoRoute);
 
 //public dir for heroku

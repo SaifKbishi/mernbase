@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const Todo = mongoose.model('Todo',{
+const Todo = mongoose.model('todo',{
  decription:{
   type: String,
   required: [true, "description is required"]
@@ -15,4 +15,4 @@ const Todo = mongoose.model('Todo',{
  }
 });
 
-module.exports = {Todo};
+module.exports = Todo;
