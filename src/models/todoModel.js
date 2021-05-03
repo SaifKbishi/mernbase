@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const Todo = mongoose.model('todo',{
- decription:{
+ description:{
   type: String,
   required: [true, "description is required"]
  },

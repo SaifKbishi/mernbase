@@ -23,14 +23,10 @@ app.get("/",  (req, res) =>{
 
 
 
-
 app.get("/",  (req, res) =>{ res.send('hello from the server')});
 
 
- 
-
-
-const PORT = process.env.PORT || 3014; //this must be the same as in the client package.json =>   "proxy":"http://localhost:3014/",
+const PORT = process.env.PORT || 3001; //this must be the same as in the client package.json =>   "proxy":"http://localhost:3014/",
 app.listen(PORT, () => {
   console.log(`Server is up and listening to PORT: ${PORT}`);
 });

@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Todo = require('../models/todoModel');
 
-router.get('/todo/',async (req, res)=>{
+//retrive all items
+router.get('/todos/',async (req, res)=>{
  try{
   const allTodos = await Todo.find({});
   res.status(200).send(allTodos);
@@ -12,7 +13,8 @@ router.get('/todo/',async (req, res)=>{
  }
 });
 
-router.get('/todo/:id', (req, res)=>{
+//retrive item by ID
+router.get('/todos/:id', (req, res)=>{
  Todo.findById(req.params.id, (error, todo)=>{
   if(!todo){
    res.status(404).send('not todo found');
@@ -22,7 +24,9 @@ router.get('/todo/:id', (req, res)=>{
  });
 });
 
-router.post('/todo/', async (req, res)=>{  
+//create item
+router.post('/todos/new', async (req, res)=>{  
+ console.log('going to create new item');
  const newTodo = new Todo(req.body);
  try{
   
@@ -34,7 +38,8 @@ router.post('/todo/', async (req, res)=>{
  }
 });
 
-router.patch('/todo/:id', async (req, res)=>{ 
+//update item by ID
+router.patch('/todos/:id', async (req, res)=>{ 
  try{
   const todo = await Todo.findByIdAndUpdate(req.params.id, req.body);
   console.log('id:',req.params.id, 'body:',req.body)
@@ -47,9 +52,12 @@ router.patch('/todo/:id', async (req, res)=>{
  } 
 });
 
-router.delete('/todo/:id', async (req, res)=>{
+//delete item by ID
+router.delete('/todos/:id', async (req, res)=>{
+ console.log('req.params.id:',req.params.id)
  try{
   const todoToDelete = await Todo.findByIdAndDelete(req.params.id);
+  console.log('todo.js 59:', todoToDelete)
   if(!todoToDelete){   
    return res.status(404).send();
   }
